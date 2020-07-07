@@ -1,0 +1,56 @@
+<nb-card
+  class="dialog-card product-detail" 
+  [nbSpinner]="item == null" 
+  nbSpinnerStatus="danger" 
+  *ngIf="item != null"
+>
+<nb-card-header>{{ item.ClothesName }}</nb-card-header>
+  <nb-card-body>
+    <div class="cover" >
+      <img src="../../../assets/{{ item.Image }}" alt="">
+      <div class="right-side">
+        <!-- CPU -->
+        <div class="title">
+          CPU
+        </div>
+        <div class="content">
+          {{ item.CPU }}
+        </div>
+        <!-- RAM -->
+        <div class="title">
+          RAM
+        </div>
+        <div class="content">
+          {{ item.RAM }}
+        </div>
+        <!-- Screen -->
+        <div class="title">
+          Screen
+        </div>
+        <div class="content">
+          {{ item.Screen }}
+        </div>
+        <!-- OS -->
+        <div class="title">
+          OS
+        </div>
+        <div class="content">
+          {{ item.OS }}
+        </div>
+        <!-- Description -->
+        <div class="title">
+          Description
+        </div>
+        <div class="content">
+          {{ item.Description }}
+        </div>
+      </div>
+    </div>
+    
+  </nb-card-body>
+  <nb-card-footer class="text-right">
+    <div class="button">
+      <button nbButton (click)="close()">Close</button>
+    </div>
+  </nb-card-footer>
+</nb-card>

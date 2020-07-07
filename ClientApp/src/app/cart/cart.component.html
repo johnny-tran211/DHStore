@@ -1,0 +1,104 @@
+
+<nb-card  *ngIf="cartService.cartList.length != 0" [nbSpinner]="loading" nbSpinnerStatus="danger">
+  <div class="cover">
+    <div class="card-item">
+      <div class="card-item content">
+        <div class="card-item info">
+          Picture
+          <div class="card-item titles">
+            <div class="name">Product Name</div>
+          </div>
+          <div class="card-item price">
+            Price
+          </div>
+          <div class="card-item quantity">
+            Quantity
+          </div>
+          <div class="card-item total">
+            Total
+          </div>
+          <div class="card-item quantity">
+            Delete
+          </div>
+        </div>
+      </div>
+
+  <div *ngFor="let cart of cartService.cartList">
+
+      <div class="card-item">
+        <div class="card-item content">
+          <div class="card-item info">
+            <img
+              class="card-item img"
+              src="../../assets/{{ cart.Item.Image }}"
+              alt="img"
+            />
+            <div class="card-item titles">
+              <div class="name">{{ cart.Item.ClothesName }}</div>
+              <div class="category">{{ cart.Item.Type }}</div>
+            </div>
+            <div class="card-item price">
+              ${{ cart.Item.Price }}
+            </div>
+            <div class="card-item quantity">
+              {{ cart.Quantity }}
+            </div>
+            <div class="card-item total">
+              ${{ cart.Quantity * cart.Item.Price }}
+            </div>
+            <input type="hidden" #id value="{{ cart.Item.Id }}">
+            <div class="card-item delete" (click)="deleteCart(id.value)">
+              <nb-icon icon="trash-outline"></nb-icon>
+            </div>
+          </div>
+        </div>
+      </div> 
+    </div>
+
+
+</div> 
+</div>
+<div class="checkout">
+  Total: ${{cartService.total}}
+  
+</div>
+<div class="button">
+<button nbButton status="success" size="medium" (click)="checkValidate()">
+          Check Quantity
+  </button>
+</div>
+
+<form class="button" #f="ngForm" (ngSubmit)="checkOut(f)" [hidden]="!checkState">
+  <div class="text">
+    <span style="font-weight: 600;">Address: </span>
+    <input type="text" name="address" #address="ngModel" ngModel nbInput placeholder="Address*" required/>
+  </div>
+   <div class="text">
+    <span style="font-weight: 600; margin-right: 15px;">Phone: </span>
+    <input type="text" name="phone" #phone="ngModel" ngModel nbInput placeholder="Phone*" required pattern="[0-9]{10,11}"><br/>
+   </div>
+   
+    
+  <button nbButton status="success" size="medium" [disabled]="address.invalid || phone.invalid">
+    Check Out
+</button>
+</form>
+<div class="error">
+  <div *ngIf="address.invalid && address.touched"  style="width: 300px;">
+    <nb-alert status="danger" *ngIf="address.errors.required">Address is required</nb-alert>
+  </div>
+  <div *ngIf="phone.invalid && (phone.touched || phone.dirty)" style="width: 300px;">
+    <nb-alert status="danger" *ngIf="phone.errors.required">Phone is required</nb-alert>
+    <nb-alert status="danger" *ngIf="phone.errors.pattern">Phone includes 10-11 number</nb-alert>
+</div>
+</div>
+
+</nb-card>
+<nb-card  *ngIf="cartService.cartList.length == 0" >
+  <div class="empty">
+    Cart is empty
+  </div>
+  <button nbButton status="info" size="large" style="width: 20%; margin: 0 40% 50px 40%;" [routerLink]="['/home']" >
+    Back To Shopping
+</button>
+</nb-card>

@@ -1,0 +1,24 @@
+.product-detail {
+  width: 800px;
+  height: 650px;
+}
+.button {
+  text-align: center;
+}
+.cover {
+  display: flex;
+}
+.title {
+  font-weight: 600;
+  padding-bottom: 2px;
+  margin-top: 25px;
+  text-align: center;
+  font-size: 17px;
+}
+.content {
+  text-align: center;
+}
+img {
+  width: 50%;
+  height: auto;
+}

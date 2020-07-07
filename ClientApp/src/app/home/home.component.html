@@ -1,0 +1,78 @@
+    <nb-card  [nbSpinner]="auth.loading || loading" nbSpinnerStatus="danger">
+      <!-- tag -->
+      <nb-tabset>
+        <!-- Iphone -->
+        <nb-tab tabTitle="Iphone">
+          <nb-form-field>
+            <nb-icon nbPrefix icon="search-outline" pack="eva"></nb-icon>
+            <input type="text" nbInput #search value="" (keyup)="iphoneSearch(search.value)">
+          </nb-form-field>
+          <div class="body-change">
+
+            <div class="cover-iphone"  
+            *ngFor="let item of Iphone">
+            <input type="hidden" #id value="{{ item.Id }}">
+            <div (click)="showDetail(id.value)">
+              <img src="../../assets/{{ item.Image }}" alt="">
+              <div class="description">
+                {{ item.ClothesName }}
+              </div>
+              <div class="price">${{ item.Price }}</div>
+            </div>
+            <div class="range">
+              <mat-slider
+              thumbLabel
+              #value="ngModel" 
+              ngModel 
+              tickInterval="1"
+              min="1"
+              max="{{ item.Quantity }}">
+            </mat-slider>
+            </div>
+              <input type="hidden" #quantity value="{{ item.Quantity }}">
+              <button nbButton
+               class="button" (click)="addToCart(id.value, value.value)" [disabled]="!auth.getLoggedIn() || quantity.value == 0"> 
+               Add to Cart
+              </button>
+          </div>
+          </div>
+        </nb-tab>
+        <!-- Macbook -->
+        <nb-tab tabTitle="Macbook">
+          <nb-form-field>
+            <nb-icon nbPrefix icon="search-outline" pack="eva"></nb-icon>
+            <input type="text" nbInput #searchMac value="" (keyup)="macbookSearch(searchMac.value)">
+          </nb-form-field>
+          <div class="body-change">
+            <div class="cover-macbook"  
+            *ngFor="let item of Macbook">
+            <input type="hidden" #id value="{{ item.Id }}">
+            <div (click)="showDetail(id.value)">
+              <img src="../../assets/{{ item.Image }}" alt="">
+              <div class="description">
+                {{ item.ClothesName }}
+              </div>
+              <div class="price">${{ item.Price }}</div>
+            </div>
+            <div class="range">
+              <mat-slider
+              thumbLabel
+              tickInterval="1" 
+              #value="ngModel" 
+              ngModel 
+              min="1" 
+              value="1"
+              max="{{ item.Quantity }}">
+            </mat-slider>
+            </div>
+            <input type="hidden" #quantity value="{{ item.Quantity }}">
+              <button nbButton
+               class="button" (click)="addToCart(id.value, value.value)" [disabled]="!auth.getLoggedIn() || quantity.value == 0">
+               Add to Cart
+              </button>
+          </div>
+          </div>
+        </nb-tab>
+      </nb-tabset>
+  
+    </nb-card>

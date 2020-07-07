@@ -1,0 +1,61 @@
+
+<nb-layout>
+  <nb-sidebar>
+    <nb-card [nbSpinner]="auth.loading" nbSpinnerStatus="danger">
+      <nb-card-body *ngIf="auth.getLoggedIn()" >
+        <nb-user size="large"
+                 name="{{ auth.getUser().name }}"
+                 title="Customer"
+                 picture="{{ auth.getUser().picture }}">
+        </nb-user>
+      </nb-card-body>
+      <button 
+      routerLinkActive="active" 
+      [routerLink]="['/home']" 
+      class="sub-sidebar">
+      <nb-icon icon="home-outline"></nb-icon> Home
+  </button>
+    <button 
+      (click)="auth.login()" 
+      *ngIf="!auth.getLoggedIn()" 
+      routerLinkActive="active" 
+      class="sub-sidebar">
+      <nb-icon icon="shield-outline"></nb-icon> Log In
+  </button>
+    <!-- <button 
+      routerLinkActive="active" 
+      [routerLink]="['/profile']" 
+      class="sub-sidebar" 
+      *ngIf="auth.getLoggedIn()">
+      Profile
+  </button> -->
+  
+    <button 
+      routerLinkActive="active" 
+      [routerLink]="['/cart']" 
+      class="sub-sidebar" 
+      *ngIf="auth.getLoggedIn()" >
+      <nb-icon icon="shopping-cart-outline"></nb-icon> 
+      <span *ngIf="cart.count != 0" matBadge="{{cart.count}}" matBadgeOverlap="false" matBadgeColor="warn">Cart</span>
+      <span *ngIf="cart.count == 0" >Cart</span>
+  </button>
+    <button 
+      routerLinkActive="active" 
+      [routerLink]="['/history']" 
+      class="sub-sidebar" 
+      *ngIf="auth.getLoggedIn()">
+      <nb-icon icon="archive-outline"></nb-icon> History
+  </button>
+    <button 
+      (click)="auth.logout()" 
+      *ngIf="auth.getLoggedIn()" 
+      routerLinkActive="active" 
+      class="sub-sidebar">
+      <nb-icon icon="shield-off-outline"></nb-icon> Log Out
+  </button>
+    </nb-card>
+  </nb-sidebar>
+<nb-layout-column>
+  <router-outlet></router-outlet>
+</nb-layout-column>
+</nb-layout>
